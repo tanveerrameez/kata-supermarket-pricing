@@ -5,7 +5,6 @@ import java.util.List;
 
 /**
  * Factory class to returns an instance of Offer Manager
- * @author tanve
  *
  */
 public class OfferManagerFactory {
@@ -17,9 +16,9 @@ public class OfferManagerFactory {
      */
     public static OfferManager getOfferManager() {
     	List<Offer> offers=new ArrayList<>();
-    	/*
-    	 * @todo: to add offers
-    	 */
+    	offers.add(new BuyManyGetOneFreeOffer(1, "Buy one get one free for Digestives with id 1", 1));
+    	offers.add(new BuyManyItemsforXPrice(2, "Buy three pints of milk with id 2 for £1 ", 2, 1));
+    	offers.add(new BuyManyGetOneFreeOffer(3, "Buy three kilo of sweets with id 3 for the price of two kilo", 2));
         return new SimpleOfferManager(offers); 
     }
 

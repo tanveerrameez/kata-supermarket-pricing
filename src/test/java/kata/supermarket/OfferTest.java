@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.stream.Stream;
 
 import org.junit.jupiter.api.DisplayName;
@@ -25,7 +26,8 @@ public class OfferTest {
 	}
 
 	static Stream<Arguments> deductTotalDiscount() {
-		return Stream.of(listOfTwoDigestivesPricedPerUnit(),listOfFourDigestivesPricedPerUnit() ,
+		return Stream.of(listOfTwoPintOfMilkPricedPerUnit(), listOfThreePintOfMilkPricedPerUnit(),
+				listOfOnePintOfMilkPricedPerUnit(),listOfTwoDigestivesPricedPerUnit(),listOfFourDigestivesPricedPerUnit() ,
 				listofthreeUnitsOfOneKiloAmericanSweets());
 	}
 
@@ -38,6 +40,18 @@ public class OfferTest {
 				Arrays.asList(aPackOfDigestives(), aPackOfDigestives(), aPackOfDigestives(), aPackOfDigestives()));
 	}
 
+	private static Arguments listOfTwoPintOfMilkPricedPerUnit() {
+		return Arguments.of("Buy Two for £1", "1.00", Arrays.asList(aPintOfMilk(), aPintOfMilk()));
+	}
+
+	private static Arguments listOfThreePintOfMilkPricedPerUnit() {
+		return Arguments.of("Buy three for £1.75 based on Buy Two for £1 offer", "1.75", Arrays.asList(aPintOfMilk(), aPintOfMilk(), aPintOfMilk()));
+	}
+
+	private static Arguments listOfOnePintOfMilkPricedPerUnit() {
+		return Arguments.of("Buy one for £0.75 based on Buy Two for £1 offer", "0.75", Collections.singleton(aPintOfMilk()));
+	}
+
 
 	private static Arguments listofthreeUnitsOfOneKiloAmericanSweets() {
 		return Arguments.of("Buy three kilo for price on two kilos for £9.98", "9.98", 
@@ -48,10 +62,16 @@ public class OfferTest {
 		return new Product(1, "Digestives", new BigDecimal("1.55")).oneOf();
 	}
 
+	private static Item aPintOfMilk() {
+		return new Product(2, "Pint of Milk", new BigDecimal("0.75")).oneOf();
+	}
 	private static Item oneKiloOfAmericanSweets() {
         return aKiloOfAmericanSweetsProduct().weighing(BigDecimal.ONE);
     }
-
+	
+	private static Item twoFiftyGramsOfAmericanSweets() {
+        return aKiloOfAmericanSweetsProduct().weighing(new BigDecimal(".25"));
+    }
 	 private static WeighedProduct aKiloOfAmericanSweetsProduct() {
 	        return new WeighedProduct(3, "American Sweets", new BigDecimal("4.99"));
 	    }
