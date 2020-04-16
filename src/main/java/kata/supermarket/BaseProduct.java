@@ -7,6 +7,8 @@ public abstract class BaseProduct {
 	 */
     private int id;
     
+    private int categoryId;
+    
     /**
      * Name of the product.
      * Useful for user friendly display etc
@@ -36,6 +38,12 @@ public abstract class BaseProduct {
 	
 	public String toString() {
 		return id+" , "+name;
+	}
+	public int getCategoryId() {
+		return categoryId;
+	}
+	public void setCategoryId(int categoryId) {
+		this.categoryId = categoryId;
 	}
 
 }
