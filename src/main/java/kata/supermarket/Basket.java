@@ -6,9 +6,20 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import kata.supermarket.offers.OfferManager;
+
 public class Basket {
     private final List<Item> items;
-
+    /*
+     * OfferManager to manage offers and provide discounts
+     */
+    private OfferManager offerManager;
+    
+    public Basket(OfferManager offerManager) {
+        this.items = new ArrayList<>();
+        this.offerManager = offerManager;
+    }
+    
     public Basket() {
         this.items = new ArrayList<>();
     }
@@ -27,9 +38,10 @@ public class Basket {
 
     private class TotalCalculator {
         private final List<Item> items;
-
+       
         TotalCalculator() {
             this.items = items();
+            
         }
 
         private BigDecimal subtotal() {
@@ -40,14 +52,14 @@ public class Basket {
         }
 
         /**
-         * TODO: This could be a good place to apply the results of
-         *  the discount calculations.
-         *  It is not likely to be the best place to do those calculations.
-         *  Think about how Basket could interact with something
-         *  which provides that functionality.
+         * Uses Offer manager to calculate discounts
+         * based on current items in basket and the existing offers
+         * provided by the offer manager
          */
         private BigDecimal discounts() {
-            return BigDecimal.ZERO;
+        	if(offerManager !=null)
+        	     return offerManager.applyOffer(items);
+        	else return BigDecimal.ZERO;
         }
 
         private BigDecimal calculate() {
